@@ -2,6 +2,8 @@ import { createSelector } from "@reduxjs/toolkit"
 import { useState } from "react"
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
+import { ListGroup, Card, CardGroup, Tabs, Tab, Button } from 'react-bootstrap';
+
 
 const selectStatus = store => store.questions.status
 const selectQuestions = store => store.questions.questions
@@ -31,33 +33,46 @@ export default function Questions()
     const status = useSelector(selectStatus)
     const answeredQuestions = useSelector(selectAnsweredQuestions)
     const unansweredQuestions = useSelector(selectUnAnsweredQuestions)
-    const [showAnswered, setShowAnswered] = useState(false);
+    const [showAnswered, setShowAnswered] = useState("unanswered");
 
     return (status === "init" ? "Loading" :
         status === "succeeded" ?
             (<div>
-                <button onClick={() => setShowAnswered(true)}>Answered</button>
-                <button onClick={() => setShowAnswered(false)}>Un answered</button>
-                {
-                    showAnswered ? answeredQuestions.map(question =>
-                    {
-                        return <EachQuestion key={question.id} question={question} />
-                    }) : unansweredQuestions.map(question =>
-                    {
-                        return <EachQuestion key={question.id} question={question} />
-                    })
-                }
+                <Tabs variant="tabs" defaultActiveKey="unanswered" fill>
+                    <Tab eventKey="answered" style={{ 'background-color': 'green' }} title="Answered Qns">
+                        {
+                            answeredQuestions.map(question =>
+                            {
+                                return <EachQuestion key={question.id} question={question} />
+                            })
+                        }
+                    </Tab>
+                    <Tab eventKey="unanswered" title="Un answered Qns">
+                        {
+                            unansweredQuestions.map(question =>
+                            {
+                                return <EachQuestion key={question.id} question={question} />
+                            })
+                        }
+                    </Tab>
+                </Tabs>
             </div >) : "Error Loading data")
 }
 
 function EachQuestion({ question })
 {
     let navigate = useNavigate()
-    return (<div>
-        {question.optionOne.text}
-        <br></br>
-        {question.optionTwo.text}
-        <br></br>
-        <button onClick={(e) => navigate(`/questions/${question.id}`)}>view</button>
-    </div>);
+    return (
+        <>
+
+            <Card bg="success" border="light" text="white" className="rounded-0">
+                <Card.Title>{question.optionOne.text.toUpperCase()}</Card.Title>
+            </Card>
+            <Card bg="danger" border="light" text="white" className="rounded-0">
+                <Card.Title>{question.optionTwo.text.toUpperCase()}</Card.Title>
+            </Card>
+            <Button className='form-control rounded-0' variant='dark' onClick={(e) => navigate(`/questions/${question.id}`)}>View Poll</Button>
+
+        </>
+    );
 }

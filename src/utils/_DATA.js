@@ -2,7 +2,7 @@ let users = {
   sarahedo: {
     id: 'sarahedo',
     name: 'Sarah Edo',
-    avatarURL: '../avatars/sarahedo.jpg',
+    avatarURL: '/avatars/sarahedo.svg',
     answers: {
       "8xf0y6ziyjabvozdd253nd": 'optionOne',
       "6ni6ok3ym7mf1p33lnez": 'optionOne',
@@ -14,7 +14,7 @@ let users = {
   tylermcginnis: {
     id: 'tylermcginnis',
     name: 'Tyler McGinnis',
-    avatarURL: '../avatars/tylermcginnis.jpg',
+    avatarURL: '/avatars/tylermcginnis.svg',
     answers: {
       "vthrdm985a262al8qx3do": 'optionOne',
       "xj352vofupe1dqz9emx13r": 'optionTwo',
@@ -24,7 +24,7 @@ let users = {
   johndoe: {
     id: 'johndoe',
     name: 'John Doe',
-    avatarURL: '../avatars/johndoe.jpg',
+    avatarURL: '/avatars/johndoe.svg',
     answers: {
       "xj352vofupe1dqz9emx13r": 'optionOne',
       "vthrdm985a262al8qx3do": 'optionTwo',
@@ -35,7 +35,7 @@ let users = {
   mtsamis: {
     id: 'mtsamis',
     name: 'Mike Tsamis',
-    avatarURL: '../avatars/mtsamis.jpg',
+    avatarURL: '/avatars/mtsamis.svg',
     answers: {
       'xj352vofupe1dqz9emx13r': 'optionOne',
       'vthrdm985a262al8qx3do': 'optionTwo',
@@ -46,7 +46,7 @@ let users = {
   zoshikanlu: {
     id: 'zoshikanlu',
     name: 'Zenobia Oshikanlu',
-    avatarURL: '../avatars/zoshikanlu.jpg',
+    avatarURL: '/avatars/zoshikanlu.svg',
     answers: {
       'xj352vofupe1dqz9emx13r': 'optionOne'
     },

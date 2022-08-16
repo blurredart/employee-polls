@@ -1,4 +1,6 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React from "react";
+import { Container } from "react-bootstrap";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
@@ -12,7 +14,9 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <Router>
-        <App />
+        <Container>
+          <App />
+        </Container>
       </Router>
     </Provider>
   </React.StrictMode>

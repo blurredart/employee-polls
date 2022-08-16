@@ -1,11 +1,12 @@
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
+import { Table } from 'react-bootstrap';
 
 export default function Leaderboard()
 {
     const questionStatus = useSelector(store => store.questions.status)
     const userStatus = useSelector(store => store.questions.status)
-    const users = useSelector(store => Object.keys(store.users.users));
+    const users = useSelector(store => (store.users.users));
     const questions = useSelector(store => store.questions.questions);
     const status = useMemo(() => questionStatus !== "init" && userStatus !== "init", [questionStatus, userStatus]);
     const stats = useSelector(store =>
@@ -15,9 +16,10 @@ export default function Leaderboard()
 
         // initialize stats
         let stats = {};
-        users.forEach(user =>
+        Object.values(users).forEach(user =>
         {
-            stats[user] = {
+            stats[user.id] = {
+                name: user.name,
                 asked: 0,
                 answered: 0
             }
@@ -43,7 +45,7 @@ export default function Leaderboard()
     })
     const sortedUsers = useSelector(store =>
     {
-        let sortedUsers = [...users]
+        let sortedUsers = Object.keys({ ...users })
         sortedUsers.sort((user1, user2) =>
         {
             const user1Total = stats[user1].asked + stats[user1].answered;
@@ -55,7 +57,7 @@ export default function Leaderboard()
 
 
     return status ? (<div >
-        <table>
+        <Table striped bordered variant="dark" size="sm">
             <thead>
                 <tr>
                     <td>User</td>
@@ -68,13 +70,13 @@ export default function Leaderboard()
                     sortedUsers.map((user, index) =>
                     {
                         return (<tr key={index}>
-                            <td>{user}</td>
+                            <td>{stats[user].name}</td>
                             <td>{stats[user].asked}</td>
                             <td>{stats[user].answered}</td>
                         </tr>)
                     })
                 }
             </tbody>
-        </table>
+        </Table>
     </div>) : <div>Loading data...</div>
 }

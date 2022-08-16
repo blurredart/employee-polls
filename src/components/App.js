@@ -21,17 +21,20 @@ function App()
     }, [dispatch]);
 
     return (
-        <Routes>
-            <Route element={<Login />}>
-                <Route path="/" element={<Questions />} />
-                <Route path="/questions/:id" element={<Question />} />
-                <Route path="/add" element={<AddQuestion />}></Route>
-                <Route path="/leaderboard" element={<Leaderboard />}></Route>
-            </Route>
-            <Route
-                path="/*"
-                element={<img src={notfound} alt="404 Page not found" />}
-            />
-        </Routes>);
+        <>
+
+            <Routes>
+                <Route element={<Login />}>
+                    <Route path="/" element={<Questions />} />
+                    <Route path="/questions/:id" element={<Question />} />
+                    <Route path="/add" element={<AddQuestion />}></Route>
+                    <Route path="/leaderboard" element={<Leaderboard />}></Route>
+                </Route>
+                <Route
+                    path="/*"
+                    element={<img src={notfound} alt="404 Page not found" />}
+                />
+            </Routes>
+        </>);
 }
 export default App;
