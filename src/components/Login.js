@@ -28,7 +28,7 @@ function Menu({ name })
                 <Nav className="me-auto">
                     <Nav.Link as={Link} to="/">Home</Nav.Link>
                     <Nav.Link as={Link} to="/leaderboard">Leaderboard</Nav.Link>
-                    <Nav.Link as={Link} to="/add">Ask Question</Nav.Link>
+                    <Nav.Link as={Link} state={{ 'fromMenu': true }} to="/add">Ask Question</Nav.Link>
                 </Nav>
                 <Navbar.Text>
                     {name}

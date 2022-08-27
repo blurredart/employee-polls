@@ -1,6 +1,7 @@
 let users = {
   sarahedo: {
     id: 'sarahedo',
+    password: 'password123',
     name: 'Sarah Edo',
     avatarURL: '/avatars/sarahedo.svg',
     answers: {
@@ -13,6 +14,7 @@ let users = {
   },
   tylermcginnis: {
     id: 'tylermcginnis',
+    password: 'abc321',
     name: 'Tyler McGinnis',
     avatarURL: '/avatars/tylermcginnis.svg',
     answers: {
@@ -21,10 +23,11 @@ let users = {
     },
     questions: ['loxhs1bqm25b708cmbf3g', 'vthrdm985a262al8qx3do'],
   },
-  johndoe: {
-    id: 'johndoe',
-    name: 'John Doe',
-    avatarURL: '/avatars/johndoe.svg',
+  mtsamis: {
+    id: 'mtsamis',
+    password: 'xyz123',
+    name: 'Mike Tsamis',
+    avatarURL: '/avatars/mtsamis.svg',
     answers: {
       "xj352vofupe1dqz9emx13r": 'optionOne',
       "vthrdm985a262al8qx3do": 'optionTwo',
@@ -32,25 +35,15 @@ let users = {
     },
     questions: ['6ni6ok3ym7mf1p33lnez', 'xj352vofupe1dqz9emx13r'],
   },
-  mtsamis: {
-    id: 'mtsamis',
-    name: 'Mike Tsamis',
-    avatarURL: '/avatars/mtsamis.svg',
-    answers: {
-      'xj352vofupe1dqz9emx13r': 'optionOne',
-      'vthrdm985a262al8qx3do': 'optionTwo',
-      '6ni6ok3ym7mf1p33lnez': 'optionOne'
-    },
-    questions: ['6ni6ok3ym7mf1p33lnez', 'xj352vofupe1dqz9emx13r']
-  },
   zoshikanlu: {
     id: 'zoshikanlu',
+    password: 'pass246',
     name: 'Zenobia Oshikanlu',
     avatarURL: '/avatars/zoshikanlu.svg',
     answers: {
-      'xj352vofupe1dqz9emx13r': 'optionOne'
+      "xj352vofupe1dqz9emx13r": 'optionOne',
     },
-    questions: []
+    questions: [],
   }
 }
 
@@ -70,15 +63,15 @@ let questions = {
   },
   "6ni6ok3ym7mf1p33lnez": {
     id: '6ni6ok3ym7mf1p33lnez',
-    author: 'johndoe',
+    author: 'mtsamis',
     timestamp: 1468479767190,
     optionOne: {
       votes: [],
-      text: 'become a superhero',
+      text: 'hire more frontend developers',
     },
     optionTwo: {
-      votes: ['johndoe', 'sarahedo'],
-      text: 'become a supervillian'
+      votes: ['mtsamis', 'sarahedo'],
+      text: 'hire more backend developers'
     }
   },
   "am8ehyc8byjqgar0jgpub9": {
@@ -87,11 +80,11 @@ let questions = {
     timestamp: 1488579767190,
     optionOne: {
       votes: [],
-      text: 'be telekinetic',
+      text: 'conduct a release retrospective 1 week after a release',
     },
     optionTwo: {
       votes: ['sarahedo'],
-      text: 'be telepathic'
+      text: 'conduct release retrospectives quarterly'
     }
   },
   "loxhs1bqm25b708cmbf3g": {
@@ -100,11 +93,11 @@ let questions = {
     timestamp: 1482579767190,
     optionOne: {
       votes: [],
-      text: 'be a front-end developer',
+      text: 'have code reviews conducted by peers',
     },
     optionTwo: {
       votes: ['sarahedo'],
-      text: 'be a back-end developer'
+      text: 'have code reviews conducted by managers'
     }
   },
   "vthrdm985a262al8qx3do": {
@@ -113,19 +106,19 @@ let questions = {
     timestamp: 1489579767190,
     optionOne: {
       votes: ['tylermcginnis'],
-      text: 'find $50 yourself',
+      text: 'take a course on ReactJS',
     },
     optionTwo: {
-      votes: ['johndoe'],
-      text: 'have your best friend find $500'
+      votes: ['mtsamis'],
+      text: 'take a course on unit testing with Jest'
     }
   },
   "xj352vofupe1dqz9emx13r": {
     id: 'xj352vofupe1dqz9emx13r',
-    author: 'johndoe',
+    author: 'mtsamis',
     timestamp: 1493579767190,
     optionOne: {
-      votes: ['johndoe'],
+      votes: ['mtsamis', 'zoshikanlu'],
       text: 'deploy to production once every two weeks',
     },
     optionTwo: {
@@ -142,17 +135,17 @@ function generateUID()
 
 export function _getUsers()
 {
-  return new Promise((res, rej) =>
+  return new Promise((resolve) =>
   {
-    setTimeout(() => res({ ...users }), 1000)
+    setTimeout(() => resolve({ ...users }), 1000)
   })
 }
 
 export function _getQuestions()
 {
-  return new Promise((res, rej) =>
+  return new Promise((resolve) =>
   {
-    setTimeout(() => res({ ...questions }), 1000)
+    setTimeout(() => resolve({ ...questions }), 1000)
   })
 }
 
@@ -175,11 +168,14 @@ function formatQuestion({ optionOneText, optionTwoText, author })
 
 export function _saveQuestion(question)
 {
-  return new Promise((res, rej) =>
+  return new Promise((resolve, reject) =>
   {
-    const authedUser = question.author;
-    const formattedQuestion = formatQuestion(question)
+    if (!question.optionOneText || !question.optionTwoText || !question.author)
+    {
+      reject("Please provide optionOneText, optionTwoText, and author");
+    }
 
+    const formattedQuestion = formatQuestion(question)
     setTimeout(() =>
     {
       questions = {
@@ -187,23 +183,20 @@ export function _saveQuestion(question)
         [formattedQuestion.id]: formattedQuestion
       }
 
-      users = {
-        ...users,
-        [authedUser]: {
-          ...users[authedUser],
-          questions: users[authedUser].questions.concat([formattedQuestion.id])
-        }
-      }
-
-      res(formattedQuestion)
+      resolve(formattedQuestion)
     }, 1000)
   })
 }
 
 export function _saveQuestionAnswer({ authedUser, qid, answer })
 {
-  return new Promise((res, rej) =>
+  return new Promise((resolve, reject) =>
   {
+    if (!authedUser || !qid || !answer)
+    {
+      reject("Please provide authedUser, qid, and answer");
+    }
+
     setTimeout(() =>
     {
       users = {
@@ -228,7 +221,7 @@ export function _saveQuestionAnswer({ authedUser, qid, answer })
         }
       }
 
-      res()
+      resolve(true)
     }, 500)
   })
 }

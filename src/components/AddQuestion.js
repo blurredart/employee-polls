@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation, Navigate } from "react-router-dom";
 import { addQuestion } from "../actions/questions";
 import { putQuestion } from "../utils/api";
-import { ListGroup, Form, Card, CardGroup, Tabs, Tab, Button } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 
 export default function AddQuestion()
 {
@@ -12,6 +12,16 @@ export default function AddQuestion()
     const dispatch = useDispatch();
     const [optionOne, setOptionOne] = useState("");
     const [optionTwo, setOptionTwo] = useState("");
+    let location = useLocation();
+
+    if (!location.state)
+    {
+        return (<Navigate to="/404" />)
+    }
+    else
+    {
+        window.history.replaceState({}, '')
+    }
 
     const handleAddQuestion = (e) =>
     {
@@ -34,14 +44,13 @@ export default function AddQuestion()
         })
         navigate("/")
     }
+
     return (
         <Form>
             <Form.Group>
-                {/* <Form.Label htmlFor="optionOne">option One</Form.Label>{' '} */}
                 <Form.Control type="text" placeholder="Enter Option One" id="optionOne" value={optionOne} onChange={(e) => setOptionOne(e.target.value)} />
             </Form.Group>
             <Form.Group>
-                {/* <Form.Label htmlFor="optionTwo">option Two</Form.Label>{' '} */}
                 <Form.Control type="text" placeholder="Enter Option Two" id="optionOne" value={optionTwo} onChange={(e) => setOptionTwo(e.target.value)} />
             </Form.Group>
             <Button variant="dark" className="form-control" onClick={handleAddQuestion} type="submit">Submit</Button>

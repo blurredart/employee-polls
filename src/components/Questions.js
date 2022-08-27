@@ -39,7 +39,7 @@ export default function Questions()
         status === "succeeded" ?
             (<div>
                 <Tabs variant="tabs" defaultActiveKey="unanswered" fill>
-                    <Tab eventKey="answered" style={{ 'background-color': 'green' }} title="Answered Qns">
+                    <Tab eventKey="answered" style={{ 'backgroundColor': 'green' }} title="Answered Qns">
                         {
                             answeredQuestions.map(question =>
                             {

@@ -22,7 +22,6 @@ function App()
 
     return (
         <>
-
             <Routes>
                 <Route element={<Login />}>
                     <Route path="/" element={<Questions />} />
@@ -32,8 +31,7 @@ function App()
                 </Route>
                 <Route
                     path="/*"
-                    element={<img src={notfound} alt="404 Page not found" />}
-                />
+                    element={<img src={notfound} alt="404 Page not found" />} />
             </Routes>
         </>);
 }

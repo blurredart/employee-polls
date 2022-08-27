@@ -48,7 +48,6 @@ export default function Question()
 
         dispatch(async () =>
         {
-            console.log("ADDING ANSWER")
             await putAnswer({ authedUser: user, qid: id, answer: option })
             dispatch(answerQuestion(user, id, option))
         })
@@ -109,7 +108,7 @@ function QuestionStats({ question, user })
     const optionTwoPcnt = Math.round((optionTwoVotes / totalVotes) * 100);
     const authorVote = question.optionOne.votes.includes(user) ? "optionOne" : "optionTwo";
     const style = {
-        'background-color': '#ffa',
+        'backgroundColor': '#ffa',
         'color': 'black'
     }
     return (
