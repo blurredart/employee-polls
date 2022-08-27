@@ -1,13 +1,10 @@
-### `npm start`
+# Employee Polls Project
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+This is React application allows users to login, logout, create polls, answer polls, and see statistics on the leaderboard. Current limitations include not persisting data and data only applicable for current session.
 
-### `npm test`
+Please follow below instructions to run and explore the application in you browser.
 
-Launches the test runner in the interactive watch mode.\
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-
+1. Clone or download the project
+2. Run `npm install` in the project root directory to install dependencies
+3. Run `npm start` to launch the project. 
+4. Run `npm test` to run test cases for the project.
